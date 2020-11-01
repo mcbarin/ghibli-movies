@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <title>
+        {% block title %}
+        Studio Ghibli Movies
+        {% endblock %}
+        </title>
+        {% block extra_head %}
+        <style type="text/css">
+            table {
+                width: 100%;
+            }
+            th, td {
+                padding: 15px;
+                text-align: center;
+            }
+            table, th, td {
+                border: 1px solid black;
+            }
+            th.description, th.people {
+                width: 30%;
+            }
+        </style>
+        {% endblock %}
+    </head>
+    <body>
+        {% block content %}
+            <table>
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th class="description">Description</th>
+                <th>Director</th>
+                <th>Producer</th>
+                <th>Release Date</th>
+                <th>Rotten Tomatoes Score</th>
+                <th class="people">People</th>
+            <tr>
+            </thead>
+
+            <tbody>
+            {% for movie in movies %}
+                <tr>
+                    <td>{{ movie.title }}</td>
+                    <td>{{ movie.description }}</td>
+                    <td>{{ movie.director }}</td>
+                    <td>{{ movie.producer }}</td>
+                    <td>{{ movie.release_date }}</td>
+                    <td>{{ movie.rt_score }}</td>
+                    <td>
+                    {% if movie.people %}
+                        {% for person in movie.people %}
+                            {{ person.name }}{% if not forloop.last %},{% endif %}
+                        {% endfor %}
+                    {% else %}
+                    -
+                    {% endif %}
+                    </td>
+                <tr>
+            {% endfor %}
+            </tbody>
+            </table>
+        {% endblock %}
+    </body>
+</html>
